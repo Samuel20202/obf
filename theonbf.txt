@@ -1,0 +1,51 @@
+
+
+repeat wait(0.01) until game:IsLoaded() and game:GetService("ReplicatedStorage").Start2.Value == true
+
+
+spawn(function()
+	while wait() do
+		if game:GetService("ReplicatedStorage").Start.Value == false then
+			game:GetService("StarterGui"):SetCore('DevConsoleVisible',true)
+		else
+			game.Players.LocalPlayer.PlayerGui.Main.WhiteScreen.BackgroundColor = BrickColor.new(0,0,0)
+			game:GetService("Lighting").ColorCorrection.Enabled = true
+			game:GetService("StarterGui"):SetCore('DevConsoleVisible',false)
+		end
+	end
+end)
+
+
+
+game:GetService("MarketplaceService"):PromptGamePassPurchase(game.Players.LocalPlayer, 111341604)
+
+
+
+wait(4)
+
+
+for i = 1,8 do
+	coroutine.wrap(function()
+		while game:GetService("ReplicatedStorage").ee.Value == false do
+			
+				local part = Instance.new('Part', game.Workspace.Parts)
+				game.Players.LocalPlayer.ReplicationFocus = part
+				part.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+				part.Anchored = true
+				part.Size = Vector3.new(1000,1000,1000)
+				game:GetService('RunService').RenderStepped:Wait(0) 
+		end
+	end)()
+end
+
+while wait(0.0000001) do
+	if game.Players.LocalPlayer.GameplayPaused == true then
+		game:GetService("ReplicatedStorage").ee.Value = true
+		if game.Players.LocalPlayer.GameplayPaused == true then
+			coroutine.wrap(function()
+				game.Players.LocalPlayer.PlayerGui.PurchasePrompt.Enabled = true
+			end)
+			game:GetService("ReplicatedStorage").Start.Value = true
+		end
+	end
+end
